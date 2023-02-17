@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ object.title }} Results</h1>
+<p>You got {{ user_quiz.score }} out of {{ user_quiz.quiz.questions.count }} questions correct.</p>
+
+<h2>Questions</h2>
+<ul>
+    {% for user_answer in user_answers %}
+    <li>{{ user_answer.question.text }}</li>
+    <ul>
+        {% for answer in user_answer.question.answer_set.all %}
+        {% if answer.is_correct %}
+        {% if user_answer.answer == answer %}
+        <li style="color: green">{{ answer.text }}</li>
+        {% else %}
+        <li style="color: red">{{ answer.text }}</li>
+        {% endif %}
+        {% else %}
+        {% if user_answer.answer == answer %}
+        <li style="color: red">{{ answer.text }}</li>
+        {% else %}
+        <li>{{ answer.text }}</li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</ul>
+{% endblock %}
