@@ -32,6 +32,7 @@ AUTH_USER_MODEL = 'Quiz.User'
 # Application definition
 
 INSTALLED_APPS = [
+    "projects.apps.ProjectsConfig",
     'Quiz.apps.QuizConfig',
     'riddles.apps.RiddlesConfig',
     'django.contrib.admin',
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'task_manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['task_manager/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
