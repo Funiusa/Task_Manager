@@ -23,12 +23,13 @@ class Post(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     body = models.TextField()
+    publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.DRAFT)
-    categories = models.ManyToManyField('Category', related_name='blog_posts')
+    # categories = models.ManyToManyField('Category', related_name='blog_posts')
 
     # class Meta:
     #     ordering = ("-publish", )
