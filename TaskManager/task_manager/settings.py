@@ -28,19 +28,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["0.0.0.0"]
 
-AUTH_USER_MODEL = 'Quiz.User'
+# AUTH_USER_MODEL = 'Quiz.User'
 # Application definition
 
 INSTALLED_APPS = [
-    "projects.apps.ProjectsConfig",
-    'Quiz.apps.QuizConfig',
-    'riddles.apps.RiddlesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'riddles.apps.RiddlesConfig',
+    "projects.apps.ProjectsConfig",
+    "blog.apps.BlogConfig",
 ]
 
 MIDDLEWARE = [
