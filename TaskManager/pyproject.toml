@@ -8,6 +8,7 @@ authors = ["dbp"]
 python = "^3.9"
 django = "^4.1.6"
 psycopg2-binary = "^2.9.5"
+pillow = "^9.4.0"
 
 [tool.poetry.dev-dependencies]
 

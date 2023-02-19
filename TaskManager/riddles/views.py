@@ -4,7 +4,7 @@ from .models import Riddle, Option
 
 
 def index(request):
-    return render(request, 'index.html', {"latest_riddles": Riddle.objects.order_by("-pub_date")[:5]})
+    return render(request, 'base.html', {"latest_riddles": Riddle.objects.order_by("-pub_date")[:5]})
 
 
 def detail(request, riddle_id):
@@ -19,7 +19,7 @@ def answer(request, riddle_id):
         return render(request, 'answer.html', {'riddle': riddle, 'error_message': 'Option does not exist'})
     else:
         if option.correct:
-            return render(request, "index.html", {"latest_riddles": Riddle.objects.order_by('-pub_date')[:5],
+            return render(request, "base.html", {"latest_riddles": Riddle.objects.order_by('-pub_date')[:5],
                                                   "message": "Nice! Choose another one!"})
         else:
             return render(request, 'answer.html', {'riddle': riddle, 'error_message': 'Wrong Answer!'})
