@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Riddle, Option
 
 
-def index(request):
+def riddles_index(request):
     return render(request, 'base.html', {"latest_riddles": Riddle.objects.order_by("-pub_date")[:5]})
 
 
