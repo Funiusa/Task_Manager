@@ -16,5 +16,38 @@
         <br>
         <img src="{% static post.image %}" alt="" width="100%">
     </div>
+    <div class="col-md-8 offset-md-2">
+        <h2>Live comments here if you want:</h2>
+        {% for comment in comments %}
+        <div class="form-group">
+            <p class="info">
+                {{ comment.body|linebreaks }}
+                {{ comment.create_on }} by {{ comment.author }}
+            </p>
+        </div>
+        {% empty %}
+            <p>There are no comments yet.</p>
+        {% endfor %}
+        <div class="form-group">
+        {% if new_comment %}
+            <h2>Your comment has been added.</h2>
+        {% else %}
+            <h3>Leave a comment</h3>
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ comment_form.author }}
+                </div>
+                <div class="form-group">
+                    {{ comment_form.body }}
+                </div>
+                <p><input type="submit" class="btn btn-primary" value="Add comment"></p>
+            </form>
+        {% endif %}
+        </div>
+        {% with comments.count as total_comments %}
+        <h5>{{ total_comments }} comment{{ total_comments|pluralize }}</h5>
+        {% endwith %}
+    </div>
 </div>
 {% endblock %}

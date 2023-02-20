@@ -13,7 +13,9 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('author', 'post', 'create_on', 'active')
+    list_filter = ('active', 'create_on')
+    search_fields = ('author', 'body')
 
 
 @admin.register(Category)

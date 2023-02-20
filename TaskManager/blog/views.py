@@ -19,33 +19,6 @@ def post_list(request):
     return render(request, template_name="post_list.html", context=context)
 
 
-# def post_detail(request, year, month, day, post):
-#     form = CommentForm()
-#     if request.method == 'POSt':
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             comment = Comment(
-#                 author=form.cleaned_data['author'],
-#                 body=form.cleaned_data['body'],
-#                 post=post
-#             )
-#             comment.save()
-#     comments = Comment.objects.filter(post=post)
-#     post = get_object_or_404(Post,
-#                              slug=post,
-#                              status='published',
-#                              publish__year=year,
-#                              publish__month=month,
-#                              publish__day=day)
-#     context = {
-#         "post": post,
-#         "comments": comments,
-#         "form": form
-#     }
-#
-#     return render(request, "post_detail.html", context=context)
-
-
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post,
                              slug=post,
@@ -53,8 +26,20 @@ def post_detail(request, year, month, day, post):
                              publish__year=year,
                              publish__month=month,
                              publish__day=day)
+    comments = post.comments.filter(active=True)
+    new_comment = None
+    comment_form = CommentForm()
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
     context = {
         "post": post,
+        "comments": comments,
+        "new_comment": new_comment,
+        "comment_form": comment_form
     }
     return render(request, 'post_detail.html', context=context)
 
